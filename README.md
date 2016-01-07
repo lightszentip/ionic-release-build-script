@@ -55,7 +55,6 @@ storePassword=storepassword
 keyPassword=keypassword
 ```
 * 7. Call `gulp help` at your command line 
-* 
 
 ## Create a new apk with new version
 
