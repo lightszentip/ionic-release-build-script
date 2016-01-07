@@ -46,7 +46,16 @@ Build script with gulp to release and create apk with ionic and new Version, als
   "author": "AuthorNAme",
   "authorEmail": "YourMailAddress",
   "authorUrl": "YourUrl",
-* 5. Call `gulp help` at your command line 
+* 5. Create a keystore for your ionic app
+* 6. Create a new file under `platforms/android` with the name 'release-signing.properties' with content:
+```
+storeFile=pathtoyourkeystore/nameofyourkeystore.keystore
+keyAlias=aliasname
+storePassword=storepassword
+keyPassword=keypassword
+```
+* 7. Call `gulp help` at your command line 
+* 
 
 ## Create a new apk with new version
 
