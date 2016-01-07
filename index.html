@@ -87,7 +87,18 @@
 "author": "AuthorNAme",
 "authorEmail": "YourMailAddress",
 "authorUrl": "YourUrl",</li>
-<li>5. Call <code>gulp help</code> at your command line </li>
+<li>5. Create a keystore for your ionic app</li>
+<li>6. Create a new file under <code>platforms/android</code> with the name 'release-signing.properties' with content:</li>
+</ul>
+
+<pre><code>storeFile=pathtoyourkeystore/nameofyourkeystore.keystore
+keyAlias=aliasname
+storePassword=storepassword
+keyPassword=keypassword
+</code></pre>
+
+<ul>
+<li>7. Call <code>gulp help</code> at your command line </li>
 </ul>
 
 <h2>
