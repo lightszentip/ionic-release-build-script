@@ -51,10 +51,15 @@ Build script with gulp to release and create apk with ionic and new Version, als
 ## Create a new apk with new version
 
 Please call
+
 `gulp createNewRelease --envType patch` for an new apk with new patch version
+
 `gulp createNewRelease --envType minor` for an new apk with new minor version
+
 `gulp createNewRelease --envType major` for an new apk with new major version
+
 `gulp createNewRelease --envType prerelease` for an new apk with new prerelease version
+
 
 The default envType is patch if you only call `gulp createNewRelease`
 
