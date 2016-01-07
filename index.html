@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Ionic-release-build-script by lightszentip</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Ionic-release-build-script</h1>
+        <p class="header">Build script with gulp to release and create apk with ionic and new Version, also tasks to update the version and commit the changes.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/lightszentip/ionic-release-build-script/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/lightszentip/ionic-release-build-script/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/lightszentip/ionic-release-build-script">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/lightszentip">lightszentip</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="ionic-release-build-script" class="anchor" href="#ionic-release-build-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>ionic-release-build-script</h1>
+
+<p>Build script with gulp to release and create apk with ionic and new Version, also tasks to update the version and commit the changes.</p>
+
+<h2>
+<a id="howto-preparation" class="anchor" href="#howto-preparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>HowTo Preparation</h2>
+
+<ul>
+<li>1. Create a new Ionic Project or add the gulpfile.js to your ionic project</li>
+<li>2. Add dependencies to your package.json </li>
+</ul>
+
+<pre><code>  "devDependencies": {
+      "bower": "^1.3.3",
+      "del": "^2.2.0",
+      "grunt": "^0.4.5",
+      "gulp": "^3.9.0",
+      "gulp-bump": "^1.0.0",
+      "gulp-clean": "^0.3.1",
+      "gulp-edit-xml": "^2.0.0",
+      "gulp-filter": "^3.0.1",
+      "gulp-git": "^1.6.1",
+      "gulp-if": "^2.0.0",
+      "gulp-jshint": "^2.0.0",
+      "gulp-load-plugins": "^1.1.0",
+      "gulp-merge": "^0.1.1",
+      "gulp-open": "^1.0.0",
+      "gulp-regex-replace": "^0.2.3",
+      "gulp-replace": "^0.5.4",
+      "gulp-tag-version": "^1.3.0",
+      "gulp-task-listing": "^1.0.1",
+      "gulp-uglify": "^1.5.1",
+      "gulp-util": "^2.2.14",
+      "gulp-xml-editor": "^2.2.1",
+      "gulp-concat": "^2.2.0",
+      "gulp-rename": "^1.2.0",
+      "minimist": "^1.2.0",
+      "moment": "^2.11.0",
+      "q": "^1.4.1",
+      "run-sequence": "^1.1.5",
+      "semver": "^5.1.0",
+      "shelljs": "^0.3.0",
+      "yargs": "^3.31.0"
+    },
+</code></pre>
+
+<ul>
+<li>3. Update your node modules with <code>npm install</code>
+</li>
+<li>4. Add the following keys to your package.json (is necessary for config.xml and AndroidManifest.xml)
+"name": "nameofyourapp",
+"version": "VersionForYourAppForExample:0.0.1",
+"description": "DescriptionForYourApp",
+"author": "AuthorNAme",
+"authorEmail": "YourMailAddress",
+"authorUrl": "YourUrl",</li>
+<li>5. Call <code>gulp help</code> at your command line </li>
+</ul>
+
+<h2>
+<a id="create-a-new-apk-with-new-version" class="anchor" href="#create-a-new-apk-with-new-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a new apk with new version</h2>
+
+<p>Please call</p>
+
+<p><code>gulp createNewRelease --envType patch</code> for an new apk with new patch version</p>
+
+<p><code>gulp createNewRelease --envType minor</code> for an new apk with new minor version</p>
+
+<p><code>gulp createNewRelease --envType major</code> for an new apk with new major version</p>
+
+<p><code>gulp createNewRelease --envType prerelease</code> for an new apk with new prerelease version</p>
+
+<p>The default envType is patch if you only call <code>gulp createNewRelease</code></p>
+
+<p>After a success build you find in <code>release_builds</code> a new apk with <code>android-release-zipalign-MMDDYYYY-hhmmss-versionnumber.apk</code> and a new tag with versionnumber.</p>
+
+<h2>
+<a id="tasks" class="anchor" href="#tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tasks</h2>
+
+<pre><code>Main Tasks
+------------------------------
+    cleanBuild
+    commitAndTag
+    createNewRelease
+    help
+    updateInfos
+    versionFeature
+    versionPatch
+    versionPrerelease
+    versionRelease
+
+Sub Tasks
+------------------------------
+    build-debug
+    build-release
+</code></pre>
+
+<ul>
+<li>help: Show all tasks</li>
+<li>cleanBuild: Clean the build dir in platforms/Android</li>
+<li>commitAndTag: Create an new commit for config.xml and package.json and create a tag by version from package.json</li>
+<li>createNewRelease: Change the version in package.json, create a new android apk release and commit and tag the result.</li>
+<li>updateInfos: Change the author.*, description and name values in config.xml by package.json</li>
+<li>build-release: Create a new apk with the version from package.json without changes on versionnumber or git</li>
+</ul>
+
+<p>For the following tasks read also <a href="http://semver.org/">http://semver.org/</a> (the version changes are only in config.xml and package.json - AndroidManifest is update by ionic release build)</p>
+
+<ul>
+<li>versionFeature: Set a new feature version - for example from 0.0.1 to 0.1.0 </li>
+<li>versionPatch: Set a new patch version - for example from 0.0.1 to 0.0.2</li>
+<li>versionPrerelease: Set a new prerelease version - for example from 0.1.0 to 1.0.0-1</li>
+<li>versionRelease: Set a new release version - for example from 1.0.5 to 2.0.0</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
